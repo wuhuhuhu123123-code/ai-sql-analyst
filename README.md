@@ -62,14 +62,14 @@ flowchart LR
 git clone https://github.com/wuhuhuhu123123-code/ai-sql-analyst.git
 cd ai-sql-analyst
 
-python scripts/seed_db.py --out data/ecommerce.db   # 生成演示库（4 张表、1200 单）
+python scripts/seed_db.py --out data/ecommerce.db   # 生成演示库
 pip install -e .                                     # 装 Web 层依赖
 
 # 有 API Key 时用真实模型
 export LLM_API_KEY=sk-xxx
 python -m nl2sql ask "2025 年各品类的销售额排名"
 
-# 没有 Key 也能跑
+# 没有Key
 python -m nl2sql ask "2025 年各品类的销售额排名" --offline
 ```
 
@@ -82,7 +82,7 @@ docker compose up --build
 # 打开 http://127.0.0.1:8000/docs
 ```
 
-镜像内已自带演示数据库，不需要外网也能查询（`LLM_API_KEY` 留空即离线模式）。
+镜像内已自带演示数据库。
 
 ## 命令行演示
 
