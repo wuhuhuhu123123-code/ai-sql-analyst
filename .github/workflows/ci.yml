@@ -1,0 +1,29 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: 核心逻辑单元测试（零第三方依赖）
+        working-directory: .
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -t tests -v
+      - name: 生成演示数据并跑通 CLI
+        env:
+          PYTHONPATH: src
+        run: |
+          python scripts/seed_db.py --out data/ecommerce.db
+          python -m nl2sql ask "订单量最多的 5 个城市" --offline

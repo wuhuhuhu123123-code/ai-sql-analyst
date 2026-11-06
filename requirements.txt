@@ -1,0 +1,3 @@
+# Web 层依赖（核心逻辑与测试只用标准库，不需要这些）
+fastapi>=0.110
+uvicorn[standard]>=0.29
